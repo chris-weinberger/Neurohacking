@@ -13,11 +13,12 @@ def print_raw(sample):
 
 #right now, this function is only writing like 6 ints to a file. Edit it so it adds new lines
 def save_raw(sample):
-	f = open("raw_data.txt", "a") #write in append mode so it doesn't delete the previous content
+	f = open("raw_data.csv", "a") #write in append mode so it doesn't delete the previous content
 	#f.write(sample.channels_data)
 	count = 0
 	for element in sample.channels_data:
 		f.write(str(element))
+		f,write(" ")
 		if count % 8 == 0:
 			f.write("\n")
 		count = count + 1
