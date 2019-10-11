@@ -15,9 +15,12 @@ def print_raw(sample):
 def save_raw(sample):
 	f = open("raw_data.txt", "a") #write in append mode so it doesn't delete the previous content
 	#f.write(sample.channels_data)
+	count = 0
 	for element in sample.channels_data:
 		f.write(str(element))
-		f.write("\n")
+		if count % 8 == 0:
+			f.write("\n")
+		count = count + 1
 
 	#print(sample.channels_data)
 

@@ -3,7 +3,7 @@ import math
 
 
 def baseStat(fileName):
-	f = open("fileName", "r")
+	f = open(fileName, "r")
 
 	#loops through the numbers to find the greatest and lowest numbers - eventually, these statistics will be gathered while
 	# the data is being streamed so as to avoid needless computation
@@ -13,7 +13,16 @@ def baseStat(fileName):
 		intNum = int(num)
 		if(intNum > greatest):
 			greatest = intNum
-		else if (intNum < lowest):
+		elif (intNum < lowest):
 			lowest = intNum
 
-	range = abs(lowest - greatest)
+	data_range = abs(lowest - greatest)
+
+	return [lowest, greatest, data_range]
+
+
+def main():
+	dataInfo[3] = baseStat("raw_data.txt")
+	print("first data: %d", dataInfo[1])
+
+main()
