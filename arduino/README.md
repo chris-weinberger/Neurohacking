@@ -1,6 +1,6 @@
 # Arduino Integration Codebase
 
-### Pyfirmata Links:
+### PyFirmata Links:
 Main Site:
 https://raspberrypi-aa.github.io/session3/firmata.html
 
