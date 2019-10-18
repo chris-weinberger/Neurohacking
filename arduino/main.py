@@ -1,14 +1,33 @@
-from pyfirmata import Arduino, util
 import time
-# Config:
-board = Arduino('/dev/ttyACM0')
-servo_one_pin = 2
-# board.digital[2].write(1)
+import pyfirmata
+board = pyfirmata.Arduino('/dev/ttyACM1')  # usb port
+servo = board.get_pin('d:9:s')  # pin PWM no 2
 
-board.digital[servo_one_pin].mode = SERVO
-board.servo_config(servo_one_pin, min_pulse=544, max_pulse=2400, angle=0)
+__copyright__ = "Copyright 2014, http://letsmakearobot.blogspot.com/"
+__version__ = "0.1.0"
+__license__ = "GPL"
+__email__ = "sebastian.dziak@gmail.com"
 
 
-def setServoAngle(pin, angle):
-    board.digital[pin].write(angle)
-    time.sleep(0.015)
+def info():
+    print("INFO")
+
+
+def validate(position):
+    if not position is None and (float(position) < 0 or float(position) > 255):
+        return "Invalid parameter!"
+
+
+info()
+while True:
+    value = input('Position (0-255):')
+    if value == 'exit': break
+    resp = validate(value)
+    if resp is None:
+        servo.write(int(value))
+    else:
+        print
+        resp
+
+print
+"goodbye"
