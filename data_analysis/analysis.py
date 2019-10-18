@@ -6,7 +6,7 @@ def baseStat(fileName):
 	f = open(fileName, "r")
 
 	#loops through the numbers to find the greatest and lowest numbers - eventually, these statistics will be gathered while
-	# the data is being streamed so as to avoid needless computation
+	# the data is being streamed so as to avoid needless inefficiency
 	greatest = 0
 	lowest = 0
 	for num in f:
