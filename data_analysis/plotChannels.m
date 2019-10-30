@@ -1,3 +1,5 @@
+%rawdatanew = rawdata;          % use this line if the data imports as rawdata
+%load('/Users/chrisweinberger/Documents/NeuroHack/data_analysis/raw_data_new.txt')
 [n,p] = size(rawdatanew); %rawdatanew is a loaded text file created using python program firstRead
 
 t = 1:n; %creates the time vector

@@ -3,6 +3,8 @@
 
 #Currently, the stream data from the OpenBCI is being saved to a file called raw_data.txt
 
+#next updates: we need to accurately see 
+
 from pyOpenBCI import OpenBCICyton
 import time
 
