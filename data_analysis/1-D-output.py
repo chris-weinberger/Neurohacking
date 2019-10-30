@@ -11,6 +11,9 @@ from pygame.locals import *
 from pyOpenBCI import OpenBCICyton
 import time
 
+
+#FOR NEXT TIME, FIGURE OUT HOW TO INTERRUPT CONTROL FLOW DURING A STREAM
+
 #global variable set here that will be altered in calibrate
 MEAN = 0
 
@@ -22,8 +25,9 @@ def calibrate(sample):
 
 	#first 15 seconds - calibrate using meditation
 
-	print("Focus on your breath during this time")
-
+	#print("Focus on your breath during this time")
+	greatest = 0
+	lowest = 0
 	for element in sample.channels_data:
 		#first gather time statistics 
 		currTime = time.time()
@@ -31,10 +35,10 @@ def calibrate(sample):
 		if(timeDiff > 15):
 			break
 		val = int(element)
-		if(intNum > greatest):
-			greatest = intNum
-		elif (intNum < lowest):
-			lowest = intNum
+		if(val > greatest):
+			greatest = val
+		elif (val < lowest):
+			lowest = val
 
 	#seconds 16-30 - calibrate to wild crazy thoughts (can change the metrics later)
 
@@ -46,14 +50,17 @@ def calibrate(sample):
 		if(timeDiff > 30):
 			break
 		val = int(element)
-		if(intNum > greatest):
-			greatest = intNum
-		elif (intNum < lowest):
-			lowest = intNum
+		if(val > greatest):
+			greatest = val
+		elif (val < lowest):
+			lowest = val
 
 	#compute relevant statistics for computing the average value... 
 	# if value is above average, rect = red, else rect = blue
 	MEAN = (greatest + lowest) / 2
+	#print(MEAN)
+	#print(lowest)
+	#print(greatest)
 
 #displays output. If sample is below mean, draws blue rectangle, otherwise draws red rectangle
 #test this program next time
@@ -69,12 +76,12 @@ def displayOutput(sample):
 
 
 def main():
-    pygame.init()
+	pygame.init()
 
-    DISPLAY=pygame.display.set_mode((500,400),0,32)
+	DISPLAY=pygame.display.set_mode((500,400),0,32)
 
-    WHITE=(255,255,255)
-    DISPLAY.fill(WHITE)
+	WHITE=(255,255,255)
+	DISPLAY.fill(WHITE)
 
 	board = OpenBCICyton(daisy = False)
 
@@ -82,17 +89,24 @@ def main():
 	print("Here's what will happen:\n")
 
 	#calibrate the stream
-	board.start_stream(calibrate)
+	startTime = time.time()
+	currTime = time.time()
+	diffTime = currTime - startTime
+	while(diffTime < 15):
+		diffTime = currTime - startTime
+		print(diffTime)
+		board.start_stream(calibrate)
+	print(MEAN)
 
 	#after calibrating, start stream again to 
 	board.start_stream(displayOutput)
 
-    while True:
-        for event in pygame.event.get():
-            if event.type==QUIT:
-                pygame.quit()
-                sys.exit()
-        pygame.display.update()
+	while True:
+		for event in pygame.event.get():
+			if event.type==QUIT:
+				pygame.quit()
+				sys.exit()
+		pygame.display.update()
 
 #draws a blue rectangle on the display when called
 def blueRect():
@@ -108,4 +122,3 @@ def redRect():
 if __name__ == '__main__':
 	main()
 
-	
