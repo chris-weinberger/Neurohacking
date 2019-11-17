@@ -15,7 +15,7 @@ def print_raw(sample):
 
 #function that saves sample stream data to a csv file... currently doesn't format correctly
 def save_raw_csv(sample):
-	f = open("raw_data.csv", "a") #write in append mode so it doesn't delete the previous content
+	f = open("aggregate_data.csv", "a") #write in append mode so it doesn't delete the previous content
 	#f.write(sample.channels_data)
 	count = 0
 	for element in sample.channels_data:
@@ -40,7 +40,7 @@ def save_raw_txt(sample):
 #Set (daisy = True) to stream 16 ch 
 board = OpenBCICyton(daisy = False)
 
-board.start_stream(save_raw_txt)
+board.start_stream(save_raw_csv)
 f.close()
 
 #not sure if this is correct, but this is to start the data filtering. Create a method to save the data to a csv, then we can filter from there

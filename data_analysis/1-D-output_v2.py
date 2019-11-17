@@ -13,46 +13,25 @@ import time
 
 
 #FOR NEXT TIME, FIGURE OUT HOW TO INTERRUPT CONTROL FLOW DURING A STREAM
-# use stop_stream?
 
 #global variable set here that will be altered in calibrate
 MEAN = 0
-START = time.time()
+START = 0
 
 #function to compute the average sample value over a 30 second period
-def calibrate(sample):
-	currTime = time.time()
-	timeDiff = currTime - START
-
-	#first 15 seconds - calibrate using meditation
-
-	greatest = 0
-	lowest = 0
-	for element in sample.channels_data:
-		val = int(element)
-		print(val)
-		if(val > greatest):
-			greatest = val
-		elif (val < lowest):
-			lowest = val
-
-	#compute relevant statistics for computing the average value... 
-	# if value is above average, rect = red, else rect = blue
-	global MEAN
-	MEAN = (greatest + lowest) / 2
 
 #displays output. If sample is below mean, draws blue rectangle, otherwise draws red rectangle
 #test this program next time
-def displayOutput(sample):
+def pixel(surface, color, pos):
+    pygame.draw.line(surface, color, pos, pos)
 
+def displayOutput(sample):
+	greatest = 0
+	lowest = 0
 	for element in sample.channels_data:
 		#first gather time statistics 
 		val = int(element)
-		print(MEAN)
-		if val > MEAN:
-			print("Above")
-		else:
-			print("Below")
+		greatest
 
 
 def main():
@@ -62,18 +41,14 @@ def main():
 
 	WHITE=(255,255,255)
 	DISPLAY.fill(WHITE)
-	redRect()
+
 	board = OpenBCICyton(daisy = False)
 
 	print("Welcome to 1-D output test!!\n")
 
 	#calibrate the stream
 	START = time.time()
-	#board.start_stream(calibrate)
-	val = board.start_stream2(calibrate, time.time())
-	time.sleep(5)
-	board.stop_stream()
-	global MEAN
+	board.start_stream(calibrate)
 	print(MEAN)
 
 	#after calibrating, start stream again to 
@@ -88,17 +63,11 @@ def main():
 
 #draws a blue rectangle on the display when called
 def blueRect():
-	DISPLAY=pygame.display.set_mode((500,400),0,32)
-	WHITE=(255,255,255)
-	DISPLAY.fill(WHITE)
 	BLUE=(0,0,255)
 	pygame.draw.rect(DISPLAY,BLUE,(200,150,100,50))
 
 #draws a red rectangle on the display when called
 def redRect():
-	DISPLAY=pygame.display.set_mode((500,400),0,32)
-	WHITE=(255,255,255)
-	DISPLAY.fill(WHITE)
 	RED=(255,0,0)
 	pygame.draw.rect(DISPLAY,RED,(200,150,100,50))
 
