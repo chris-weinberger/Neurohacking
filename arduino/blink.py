@@ -1,11 +1,7 @@
-from pyfirmata import Arduino, util
-from time import sleep
+import pyfirmata
+import time
 
-board = Arduino('/dev/ttyACM0')
-print
-"Start blinking D13"
-while True:
-    board.digital[13].write(1)
-    sleep(0.5)
-    board.digital[13].write(0)
-    sleep(0.5)
+board = pyfirmata.Arduino('/dev/cu.usbmodem14401')
+test = board.servo_config(3)
+servo = board.get_pin('d:3:s')
+servo.write(180)
