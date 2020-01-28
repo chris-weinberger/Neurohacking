@@ -10,7 +10,12 @@ import time
 
 
 def print_raw(sample):
-    print(sample.channels_data)
+	#print(len(sample.channels_data))
+	for i in range(len(sample.channels_data)):
+		print(sample.channels_data[i])
+
+	print('\n')
+    #print(sample.channels_data)
 
 
 #function that saves sample stream data to a csv file... currently doesn't format correctly
@@ -40,7 +45,7 @@ def save_raw_txt(sample):
 #Set (daisy = True) to stream 16 ch 
 board = OpenBCICyton(daisy = False)
 
-board.start_stream(save_raw_csv)
+board.start_stream(print_raw)
 f.close()
 
 #not sure if this is correct, but this is to start the data filtering. Create a method to save the data to a csv, then we can filter from there
