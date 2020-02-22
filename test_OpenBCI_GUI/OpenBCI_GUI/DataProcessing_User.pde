@@ -126,9 +126,12 @@ class DataProcessing_User {
 
     //Thought... I might want to write a calibrate function to change the SNR values to something relevant for the user, so if they're hovering 
     // around 50/60, they can still control the robot... make it relative to where they are already
-    void calibrateSNR(){
-        
-    }
+
+    //also - another feature to add is for the user to select the serial output for arduino... just add a button and a list dropdown that can be updated
+
+    // void calibrateSNR(){
+
+    // }
 
 
     void findPeakFrequency(FFT[] fftData,int Ichan) {
