@@ -29,7 +29,7 @@ W_DigitalRead w_digitalRead;
 W_MarkerMode w_markermode;
 W_playback w_playback;
 W_SSVEP w_ssvep;
-W_Neuro w_neuro;
+W_Neuro w_neuro; // declares it but doesn't use it right now - going to edit FFT widget instead.
 
 //ADD YOUR WIDGET TO WIDGETS OF WIDGETMANAGER
 void setupWidgets(PApplet _this, ArrayList<Widget> w){
@@ -125,9 +125,9 @@ void setupWidgets(PApplet _this, ArrayList<Widget> w){
     }
 
     //adds the w_neuro widget to the array list in dropdown menu
-    w_neuro = new W_Neuro(_this);
-    w_neuro.setTitle("Robot Control");
-    addWidget(w_neuro, w);
+    // w_neuro = new W_Neuro(_this);
+    // w_neuro.setTitle("Robot Control");
+    // addWidget(w_neuro, w);
     
     //Cyton Widget_12, Synthetic Widget_8, Ganglion/Playback Widget_9
     //DEVELOPERS: Here is an example widget with the essentials/structure in place

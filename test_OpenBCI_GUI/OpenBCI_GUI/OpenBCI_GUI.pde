@@ -358,6 +358,8 @@ void setup() {
         frameRate(60); //refresh rate ... this will slow automatically, if your processor can't handle the specified rate
     }
 
+    //Arduino arduino = new Arduino()
+
     // Bug #426: If setup takes too long, JOGL will time out waiting for the GUI to draw something.
     // moving the setup to a separate thread solves this. We just have to make sure not to
     // start drawing until delayed setup is done.
@@ -797,12 +799,7 @@ void initSystem() throws Exception {
         //initilize the GUI
         topNav.initSecondaryNav();
 
-        setup
-        
-        
-        
-        
-        Manager();
+        setupWidgetManager();
 
         if (!abandonInit) {
             nextPlayback_millis = millis(); //used for synthesizeData and readFromFile.  This restarts the clock that keeps the playback at the right pace.
@@ -925,7 +922,13 @@ void initCoreDataObjects() {
         dataPacketBuff[i] = new DataPacket_ADS1299(nchan, n_aux_ifEnabled);
     }
     dataProcessing = new DataProcessing(nchan, getSampleRateSafe());
-    dataProcessing_user = new DataProcessing_User(nchan, getSampleRateSafe());
+
+    //Set up all the variables needed for DataProcessing_User
+    Serial myPort;
+    printArray(Serial.list());                                      //print list of available serial objects
+    myPort = new Serial(this, Serial.list()[8], 9600);
+    Arduino arduino = new Arduino(myPort);
+    dataProcessing_user = new DataProcessing_User(nchan, getSampleRateSafe(), arduino);
 
     //initialize the data
     prepareData(dataBuffX, dataBuffY_uV, getSampleRateSafe());
